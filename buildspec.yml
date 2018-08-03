@@ -1,0 +1,21 @@
+version: 0.2
+
+env:
+  variables:
+    AWS_DEFAULT_REGION: "us-east-1"
+    REPO: "021523638892.dkr.ecr.us-east-1.amazonaws.com/ia-spin-kube-demo"
+  parameter-store:
+
+phases:
+  build:
+    commands:
+      - export VERSION=$(cat VERSION.txt)
+      - eval $(aws ecr get-login --no-include-email)
+      - docker build -t ia-spin-kube-demo .
+      - docker tag ia-spin-kube-demo:latest $REPO:latest
+      - docker tag ia-spin-kube-demo:latest $REPO:$VERSION
+      - docker push $REPO:$VERSION
+      - docker push $REPO:latest
+artifacts:
+
+cache:
