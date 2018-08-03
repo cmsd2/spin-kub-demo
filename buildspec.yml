@@ -4,7 +4,6 @@ env:
   variables:
     AWS_DEFAULT_REGION: "us-east-1"
     REPO: "021523638892.dkr.ecr.us-east-1.amazonaws.com/ia-spin-kube-demo"
-  parameter-store:
 
 phases:
   build:
